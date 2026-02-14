@@ -13,7 +13,14 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-hidden">
+      {/* Background gradient effect */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-purple-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-purple-200 via-pink-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+
       {/* Nav */}
       <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
         <span className="font-display text-xl font-bold tracking-tight text-foreground">
@@ -49,22 +56,32 @@ const Landing = () => {
       </nav>
 
       {/* Hero */}
-      <main className="flex-1 flex items-center justify-center px-6">
-        <div className="max-w-2xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-medium">
-            <Sparkles className="w-4 h-4" />
-            Intent-Based Collaboration
+      <main className="relative flex-1 flex items-center justify-center px-6 pb-12">
+        <div className="max-w-3xl mx-auto text-center space-y-8 animate-fade-in">
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 text-sm font-semibold">
+            <div className="w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
+            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Intent-Based Collaboration
+            </span>
           </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground leading-[1.1]">
-            Human API
-          </h1>
+          <div className="space-y-4">
+            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none">
+              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+                Find Your
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                Perfect Match
+              </span>
+            </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto leading-relaxed">
-            Intent-Based Human Connection Engine.
-            <br />
-            Describe what you need — we'll find who fits.
-          </p>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-medium">
+              The intelligent connection engine that understands what you need.
+              <br />
+              Describe your goals — we'll find collaborators who truly fit.
+            </p>
+          </div>
 
           <Button
             size="lg"
@@ -75,19 +92,26 @@ const Landing = () => {
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>
 
-          {/* Feature pills */}
-          <div className="flex flex-wrap justify-center gap-4 pt-8">
+          {/* Feature cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-12">
             {[
-              { icon: Users, label: "Suggested Matches" },
-              { icon: Zap, label: "Instant Connections" },
-              { icon: Sparkles, label: "Ethical Matching" },
-            ].map(({ icon: Icon, label }) => (
+              { icon: Users, label: "Smart Matches", desc: "AI-powered compatibility" },
+              { icon: Zap, label: "Instant Results", desc: "Get connections in seconds" },
+              { icon: Sparkles, label: "Ethical AI", desc: "Privacy-first approach" },
+            ].map(({ icon: Icon, label, desc }) => (
               <div
                 key={label}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-sm text-muted-foreground"
+                className="group p-6 rounded-2xl bg-white/60 backdrop-blur-xl border border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <Icon className="w-4 h-4 text-primary" />
-                {label}
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center mb-3 group-hover:shadow-lg transition-all">
+                  <Icon className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="font-display text-lg font-bold text-gray-900 mb-1">
+                  {label}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {desc}
+                </p>
               </div>
             ))}
           </div>
