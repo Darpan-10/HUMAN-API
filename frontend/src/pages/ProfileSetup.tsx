@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, User } from "lucide-react";
+import { ArrowRight, User, Sparkles, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,58 +62,86 @@ const ProfileSetup = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
-        <span
-          className="font-display text-xl font-bold tracking-tight text-foreground cursor-pointer"
+    <div className="min-h-screen flex flex-col overflow-hidden">
+      {/* Background gradient effect */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-pink-200 via-purple-200 to-transparent rounded-full blur-3xl opacity-30" style={{ animationDelay: '1s' }} />
+      </div>
+
+      {/* Nav */}
+      <nav className="relative px-6 py-6 flex items-center justify-between max-w-6xl mx-auto w-full">
+        <button
           onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors group"
         >
-          Human API
-        </span>
+          <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+          Back
+        </button>
       </nav>
 
-      <main className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md space-y-8 animate-fade-in">
-          <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-4">
-              <User className="w-7 h-7 text-primary" />
+      {/* Main content */}
+      <main className="relative flex-1 flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-2xl space-y-10 animate-fade-in">
+          {/* Header */}
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center justify-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-40" />
+                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                  <User className="w-8 h-8 text-white" />
+                </div>
+              </div>
             </div>
-            <h1 className="font-display text-3xl font-bold text-foreground">
-              Set Up Your Profile
+            <h1 className="font-display text-5xl sm:text-6xl font-black tracking-tight leading-none">
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Create Your Profile
+              </span>
             </h1>
-            <p className="text-muted-foreground">
-              Tell us about yourself so we can find the best matches.
+            <p className="text-lg text-gray-600 max-w-lg mx-auto leading-relaxed font-medium">
+              Help us understand your strengths so we can find the perfect collaborators for you.
             </p>
           </div>
 
-          <div className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+          {/* Form Card */}
+          <div className="rounded-3xl bg-white/80 backdrop-blur-xl border-2 border-purple-100 p-8 space-y-6">
+            <div className="space-y-3">
+              <Label htmlFor="name" className="text-base font-bold text-gray-900">
+                Full Name
+              </Label>
               <Input
                 id="name"
-                placeholder="Your name"
+                placeholder="Enter your full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="skills">Skills</Label>
+            <div className="space-y-3">
+              <Label htmlFor="skills" className="text-base font-bold text-gray-900">
+                Your Skills
+              </Label>
               <Input
                 id="skills"
-                placeholder="React, Python, Design (comma separated)"
+                placeholder="e.g., React, Python, UI Design (comma separated)"
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
+                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="interests">Interests</Label>
+            <div className="space-y-3">
+              <Label htmlFor="interests" className="text-base font-bold text-gray-900">
+                Interests
+              </Label>
               <Input
                 id="interests"
-                placeholder="AI, Web Development, Open Source"
+                placeholder="e.g., AI, Web Development, Startups (comma separated)"
                 value={interests}
                 onChange={(e) => setInterests(e.target.value)}
+                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
@@ -152,6 +180,14 @@ const ProfileSetup = () => {
               {loading ? "Saving..." : "Save Profile"}
               {!loading && <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />}
             </Button>
+          </div>
+
+          {/* Info note */}
+          <div className="flex items-start gap-3 p-5 rounded-xl bg-purple-50 border border-purple-200">
+            <Sparkles className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-gray-700 font-medium">
+              Your profile helps us match you with people who have complementary skills and shared interests.
+            </p>
           </div>
         </div>
       </main>
