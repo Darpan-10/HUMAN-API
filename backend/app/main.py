@@ -13,7 +13,8 @@ logging.basicConfig(
 # Add missing imports
 from app.config import settings
 from app.routes import auth, intent, suggestions
-from app.database import client
+from app.database import client, users_collection
+from app.services.parser import extract_keywords
 
 
 logger = logging.getLogger(__name__)
@@ -97,3 +98,32 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "ok", "environment": settings.environment}
+
+
+@app.post("/intent")
+def quick_intent(payload: dict):
+    try:
+        text = payload.get("intent", "")
+        if not isinstance(text, str) or not text.strip():
+            return []
+        keywords = set(extract_keywords(text))
+        if not keywords:
+            return []
+        results = []
+        users = list(users_collection.find({"is_deleted": False}))
+        for u in users:
+            name = u.get("name") or "User"
+            skills = set([s.lower() for s in u.get("skills", []) if isinstance(s, str)])
+            interests = set([i.lower() for i in u.get("interests", []) if isinstance(i, str)])
+            overlap = list((skills | interests) & keywords)
+            if not overlap:
+                continue
+            if len(overlap) >= 3:
+                tag = "Suggested Match"
+            else:
+                tag = "Compatible Match"
+            reason = "Shares " + ", ".join(overlap[:3])
+            results.append({"name": name, "tag": tag, "reason": reason})
+        return results[:10]
+    except Exception:
+        return []
