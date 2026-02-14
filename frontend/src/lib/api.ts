@@ -4,6 +4,8 @@ export interface ConnectionResult {
   name: string;
   tag: string;
   reason: string;
+  email?: string;
+  expertise?: { skill: string; level: number }[];
 }
 
 export interface User {

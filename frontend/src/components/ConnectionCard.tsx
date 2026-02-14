@@ -2,30 +2,22 @@ import { UserCheck, Sparkles, Handshake, TrendingUp } from "lucide-react";
 import type { ConnectionResult } from "@/lib/api";
 
 const tagConfig: Record<string, { icon: typeof UserCheck; className: string; bgColor: string }> = {
-  "Recommended Connection": {
+  "Explore": {
     icon: Sparkles,
-    className: "bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 border border-purple-200",
-    bgColor: "from-purple-600 to-pink-600"
+    className: "bg-gradient-to-r from-lime-100 to-yellow-100 text-green-700 border border-green-200",
+    bgColor: "from-green-600 to-lime-600"
   },
-  "Compatible Match": {
+  "Medium Alignment": {
     icon: Handshake,
-    className: "bg-gradient-to-r from-orange-100 to-yellow-100 text-orange-700 border border-orange-200",
-    bgColor: "from-orange-600 to-yellow-500"
+    className: "bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200",
+    bgColor: "from-yellow-600 to-amber-600"
   },
-  "Suggested Match": {
+  "High Alignment": {
     icon: UserCheck,
     className: "bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200",
     bgColor: "from-green-600 to-emerald-600"
   },
 };
-
-// Mock expertise data - in a real app, this would come from the API
-const mockExpertise = [
-  { skill: "React", level: 85 },
-  { skill: "Design", level: 72 },
-  { skill: "Leadership", level: 88 },
-  { skill: "Backend", level: 65 },
-];
 
 interface Props {
   result: ConnectionResult;
@@ -33,16 +25,19 @@ interface Props {
 }
 
 const ConnectionCard = ({ result, index }: Props) => {
-  const tag = tagConfig[result.tag] || tagConfig["Recommended Connection"];
+  const tag = tagConfig[result.tag] || tagConfig["Explore"];
   const TagIcon = tag.icon;
+
+  // Use real expertise data from backend or fallback to empty array
+  const expertise = result.expertise || [];
 
   return (
     <div
-      className="group rounded-2xl border-2 border-purple-100 hover:border-purple-300 bg-white/80 backdrop-blur-xl p-6 space-y-5 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden"
+      className="group rounded-3xl border-2 border-green-100 hover:border-green-300 bg-white/80 backdrop-blur-xl p-8 space-y-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 overflow-hidden flex flex-col min-h-[450px] relative"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Background accent */}
-      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10" />
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-green-100 to-yellow-100 rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-300 -z-10" />
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
@@ -73,42 +68,51 @@ const ConnectionCard = ({ result, index }: Props) => {
       </p>
 
       {/* Expertise Graph */}
-      <div className="pt-4 border-t border-purple-100">
+      <div className="pt-4 border-t border-green-100">
         <div className="flex items-center gap-2 mb-4">
-          <TrendingUp className="w-4 h-4 text-purple-600" />
+          <TrendingUp className="w-4 h-4 text-green-600" />
           <p className="text-sm font-bold text-gray-900">Expertise Areas</p>
         </div>
 
         <div className="space-y-3">
-          {mockExpertise.map((exp) => (
-            <div key={exp.skill} className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-gray-700">
-                  {exp.skill}
-                </span>
-                <span className="text-xs font-bold text-purple-600">
-                  {exp.level}%
-                </span>
+          {expertise.length > 0 ? (
+            expertise.map((exp) => (
+              <div key={exp.skill} className="space-y-1.5" title={`${exp.skill}: ${exp.level}%`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-gray-700 capitalize">
+                    {exp.skill}
+                  </span>
+                  <span className="text-xs font-bold text-green-600">
+                    {exp.level}%
+                  </span>
+                </div>
+                <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-green-600 to-lime-600 rounded-full transition-all duration-500 ease-out"
+                    style={{
+                      width: `${exp.level}%`,
+                    }}
+                  />
+                </div>
               </div>
-              <div className="h-2 rounded-full bg-gray-200 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full transition-all duration-500 ease-out"
-                  style={{
-                    width: `${exp.level}%`,
-                    animation: `slideIn 0.8s ease-out forwards`,
-                    animationDelay: `${index * 100 + (mockExpertise.indexOf(exp) * 50)}ms`
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-sm text-gray-500 italic">No specific skills listed</p>
+          )}
         </div>
       </div>
 
       {/* Action button */}
-      <button className="w-full mt-4 py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:shadow-lg active:scale-95">
-        Connect with {result.name.split(' ')[0]}
-      </button>
+      <div className="mt-auto pt-4">
+        <a
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${result.email || ''}&su=Collaboration Opportunity - Human API&body=Hi ${result.name.split(' ')[0]}, I saw your profile on Human API and would love to connect and discuss a potential collaboration!`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 transition-all duration-300 hover:shadow-lg active:scale-95 no-underline"
+        >
+          Chat with {result.name.split(' ')[0]}
+        </a>
+      </div>
 
       <style>{`
         @keyframes slideIn {

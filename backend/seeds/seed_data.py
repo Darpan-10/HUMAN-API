@@ -1,4 +1,4 @@
-# seeds/sample_data.py
+# seeds/seed_data.py
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -7,8 +7,8 @@ from app.database import users_collection, intents_collection
 from datetime import datetime, timedelta
 import bcrypt
 
-def seed_sample_data():
-    """Seed 10 sample users with intents"""
+def seed_large_dataset():
+    """Seed 45 diverse users with realistic intents"""
     
     try:
         users_collection.delete_many({})
@@ -20,246 +20,127 @@ def seed_sample_data():
     hashed_pwd = bcrypt.hashpw("pass123".encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     
     users = [
-        {
-            "email": "alice@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Alice Chen",
-            "skills": ["python", "fastapi", "mongodb"],
-            "interests": ["web dev", "ai", "sustainability"],
-            "bio": "3rd year CS student building green tech",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "bob@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Bob Johnson",
-            "skills": ["react", "javascript", "nodejs"],
-            "interests": ["mobile dev", "ui/ux", "design"],
-            "bio": "Frontend dev enthusiast",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "charlie@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Charlie Patel",
-            "skills": ["python", "tensorflow", "pytorch"],
-            "interests": ["machine learning", "ai", "data science"],
-            "bio": "AI researcher passionate about NLP",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "diana@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Diana Lee",
-            "skills": ["flutter", "dart", "firebase"],
-            "interests": ["mobile app", "startups"],
-            "bio": "Mobile app developer with startup experience",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "evan@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Evan Martinez",
-            "skills": ["java", "spring", "docker"],
-            "interests": ["backend", "devops", "cloud"],
-            "bio": "Backend engineer interested in scalable systems",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "fiona@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Fiona Singh",
-            "skills": ["python", "blockchain", "solidity"],
-            "interests": ["web3", "cryptocurrency", "defi"],
-            "bio": "Blockchain developer exploring Web3",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "george@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "George Wang",
-            "skills": ["vue", "typescript", "css"],
-            "interests": ["frontend", "design", "animation"],
-            "bio": "Creative frontend developer",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "hannah@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Hannah Brown",
-            "skills": ["python", "django", "postgresql"],
-            "interests": ["backend", "databases", "apis"],
-            "bio": "Full stack developer with backend focus",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "isaac@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Isaac Kumar",
-            "skills": ["react", "python", "aws"],
-            "interests": ["full stack", "cloud", "devops"],
-            "bio": "Full stack developer interested in cloud solutions",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        },
-        {
-            "email": "julia@campus.edu",
-            "password_hash": hashed_pwd,
-            "name": "Julia Garcia",
-            "skills": ["golang", "rust", "c++"],
-            "interests": ["systems", "competitive programming"],
-            "bio": "Systems programmer interested in performance",
-            "availability": "ACTIVE",
-            "is_deleted": False,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow()
-        }
+        # WEB DEVELOPERS
+        {"email": "alice@campus.edu", "password_hash": hashed_pwd, "name": "Alice Chen", "skills": ["python", "fastapi", "mongodb", "docker"], "interests": ["web dev", "ai", "sustainability"], "bio": "Backend engineer passionate about clean code", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "bob@campus.edu", "password_hash": hashed_pwd, "name": "Bob Johnson", "skills": ["react", "javascript", "typescript", "tailwind"], "interests": ["frontend", "ui/ux", "design"], "bio": "Full-stack dev with design passion", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "carol@campus.edu", "password_hash": hashed_pwd, "name": "Carol Martinez", "skills": ["vue", "nuxt", "graphql", "nodejs"], "interests": ["frontend", "performance", "animation"], "bio": "Vue specialist with performance optimization focus", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "david@campus.edu", "password_hash": hashed_pwd, "name": "David Park", "skills": ["java", "spring", "postgresql", "kafka"], "interests": ["backend", "microservices", "scalability"], "bio": "Enterprise backend developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "elena@campus.edu", "password_hash": hashed_pwd, "name": "Elena Rodriguez", "skills": ["php", "laravel", "mysql", "redis"], "interests": ["backend", "web development", "databases"], "bio": "PHP developer with 3 years experience", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # MOBILE DEVELOPERS
+        {"email": "frank@campus.edu", "password_hash": hashed_pwd, "name": "Frank Lee", "skills": ["flutter", "dart", "firebase", "bloc"], "interests": ["mobile app", "startup", "ux"], "bio": "Cross-platform mobile developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "grace@campus.edu", "password_hash": hashed_pwd, "name": "Grace Wilson", "skills": ["swift", "ios", "swiftui", "xcode"], "interests": ["ios", "mobile design", "performance"], "bio": "iOS specialist passionate about clean architecture", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "henry@campus.edu", "password_hash": hashed_pwd, "name": "Henry Chang", "skills": ["kotlin", "android", "jetpack", "room"], "interests": ["android", "material design", "app development"], "bio": "Android developer focusing on material design", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "iris@campus.edu", "password_hash": hashed_pwd, "name": "Iris Kumar", "skills": ["react native", "expo", "javascript", "firebase"], "interests": ["mobile", "cross-platform", "startups"], "bio": "React Native enthusiast building cross-platform apps", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # AI/ML SPECIALISTS
+        {"email": "jack@campus.edu", "password_hash": hashed_pwd, "name": "Jack Thompson", "skills": ["python", "tensorflow", "pytorch", "nlp"], "interests": ["machine learning", "nlp", "ai"], "bio": "ML engineer specializing in NLP", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "karen@campus.edu", "password_hash": hashed_pwd, "name": "Karen Singh", "skills": ["python", "scikit-learn", "pandas", "jupyter"], "interests": ["data science", "analytics", "research"], "bio": "Data scientist passionate about research", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "leo@campus.edu", "password_hash": hashed_pwd, "name": "Leo Huang", "skills": ["python", "computer vision", "opencv", "keras"], "interests": ["computer vision", "ai", "research"], "bio": "Computer vision researcher", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "maya@campus.edu", "password_hash": hashed_pwd, "name": "Maya Patel", "skills": ["python", "reinforcement learning", "gym", "pytorch"], "interests": ["machine learning", "robotics", "ai"], "bio": "RL specialist interested in robotics", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # DEVOPS/CLOUD
+        {"email": "noah@campus.edu", "password_hash": hashed_pwd, "name": "Noah Adams", "skills": ["kubernetes", "docker", "aws", "terraform"], "interests": ["devops", "cloud", "infrastructure"], "bio": "DevOps engineer with AWS expertise", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "olivia@campus.edu", "password_hash": hashed_pwd, "name": "Olivia Green", "skills": ["gcp", "cloud functions", "firestore", "ci/cd"], "interests": ["cloud", "gcp", "automation"], "bio": "GCP specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "paul@campus.edu", "password_hash": hashed_pwd, "name": "Paul Mitchell", "skills": ["azure", "powershell", "windows server", "c#"], "interests": ["cloud", "microsoft", "enterprise"], "bio": "Azure and Microsoft specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "quinn@campus.edu", "password_hash": hashed_pwd, "name": "Quinn Davis", "skills": ["ansible", "jenkins", "gitlab", "linux"], "interests": ["devops", "automation", "infrastructure"], "bio": "Infrastructure automation enthusiast", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # BLOCKCHAIN/WEB3
+        {"email": "ryan@campus.edu", "password_hash": hashed_pwd, "name": "Ryan Chen", "skills": ["solidity", "ethereum", "web3.js", "hardhat"], "interests": ["blockchain", "web3", "defi"], "bio": "Smart contract developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "sophia@campus.edu", "password_hash": hashed_pwd, "name": "Sophia Brown", "skills": ["rust", "near", "substrate", "blockchain"], "interests": ["blockchain", "rust", "systems"], "bio": "Rust blockchain developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "thomas@campus.edu", "password_hash": hashed_pwd, "name": "Thomas White", "skills": ["javascript", "web3", "metamask", "dapps"], "interests": ["web3", "dapps", "frontend"], "bio": "DApp frontend developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "uma@campus.edu", "password_hash": hashed_pwd, "name": "Uma Singh", "skills": ["go", "blockchain", "consensus", "cryptography"], "interests": ["blockchain", "cryptocurrency", "research"], "bio": "Blockchain infrastructure researcher", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # GAME DEVELOPMENT
+        {"email": "victor@campus.edu", "password_hash": hashed_pwd, "name": "Victor Lopez", "skills": ["unity", "c#", "game dev", "3d graphics"], "interests": ["game dev", "3d", "graphics"], "bio": "Unity game developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "wanda@campus.edu", "password_hash": hashed_pwd, "name": "Wanda Clark", "skills": ["unreal", "c++", "blueprints", "game design"], "interests": ["game dev", "unreal", "graphics"], "bio": "Unreal engine specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "xavier@campus.edu", "password_hash": hashed_pwd, "name": "Xavier Young", "skills": ["godot", "gdscript", "game physics", "animation"], "interests": ["game dev", "open source", "indie games"], "bio": "Godot game developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "yara@campus.edu", "password_hash": hashed_pwd, "name": "Yara Hassan", "skills": ["blender", "3d modeling", "animation", "vfx"], "interests": ["3d", "animation", "game art"], "bio": "3D artist and animator", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # DATA/SYSTEMS
+        {"email": "zack@campus.edu", "password_hash": hashed_pwd, "name": "Zack Morgan", "skills": ["golang", "rust", "systems programming", "c++"], "interests": ["systems", "performance", "low-level"], "bio": "Systems programmer passionate about performance", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "amy@campus.edu", "password_hash": hashed_pwd, "name": "Amy Foster", "skills": ["sql", "postgresql", "mongodb", "database design"], "interests": ["databases", "data engineering", "analytics"], "bio": "Database specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "brian@campus.edu", "password_hash": hashed_pwd, "name": "Brian Scott", "skills": ["spark", "hadoop", "hive", "python"], "interests": ["big data", "data engineering", "analytics"], "bio": "Big data engineer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "crystal@campus.edu", "password_hash": hashed_pwd, "name": "Crystal Bell", "skills": ["elasticsearch", "kibana", "logstash", "monitoring"], "interests": ["monitoring", "observability", "devops"], "bio": "Observability specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # SECURITY/TESTING
+        {"email": "daniel@campus.edu", "password_hash": hashed_pwd, "name": "Daniel Ross", "skills": ["python", "penetration testing", "security", "networking"], "interests": ["security", "cybersecurity", "penetration testing"], "bio": "Security engineer and ethical hacker", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "emma@campus.edu", "password_hash": hashed_pwd, "name": "Emma Taylor", "skills": ["selenium", "cypress", "jest", "testing"], "interests": ["qa", "testing", "automation"], "bio": "QA engineer passionate about test automation", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "fred@campus.edu", "password_hash": hashed_pwd, "name": "Fred Gibson", "skills": ["postman", "api testing", "load testing", "jmeter"], "interests": ["testing", "api", "performance"], "bio": "API and performance tester", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # DESIGN/UX
+        {"email": "gina@campus.edu", "password_hash": hashed_pwd, "name": "Gina Pierce", "skills": ["figma", "ui design", "prototyping", "user research"], "interests": ["ui/ux", "design", "user research"], "bio": "UI/UX designer with user research focus", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "helen@campus.edu", "password_hash": hashed_pwd, "name": "Helen Wright", "skills": ["adobe xd", "ux design", "wireframing", "accessibility"], "interests": ["ux", "accessibility", "design"], "bio": "UX designer focused on accessibility", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "ian@campus.edu", "password_hash": hashed_pwd, "name": "Ian Stewart", "skills": ["graphic design", "branding", "adobe creative", "illustration"], "interests": ["design", "branding", "creative"], "bio": "Graphic designer and illustrator", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "jane@campus.edu", "password_hash": hashed_pwd, "name": "Jane Bennett", "skills": ["motion design", "after effects", "animation", "ux"], "interests": ["animation", "motion design", "ux"], "bio": "Motion designer and animator", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # PRODUCT/BUSINESS
+        {"email": "kevin@campus.edu", "password_hash": hashed_pwd, "name": "Kevin Hunt", "skills": ["product management", "analytics", "roadmapping", "strategy"], "interests": ["product", "startups", "strategy"], "bio": "Product manager with startup experience", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "laura@campus.edu", "password_hash": hashed_pwd, "name": "Laura Evans", "skills": ["project management", "agile", "scrum", "jira"], "interests": ["project management", "agile", "leadership"], "bio": "Agile project manager", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "mike@campus.edu", "password_hash": hashed_pwd, "name": "Mike Nelson", "skills": ["technical writing", "documentation", "communication", "markdown"], "interests": ["documentation", "technical writing", "communication"], "bio": "Technical writer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "nancy@campus.edu", "password_hash": hashed_pwd, "name": "Nancy Hudson", "skills": ["marketing", "content", "analytics", "seo"], "interests": ["marketing", "growth", "analytics"], "bio": "Growth marketer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        
+        # FULL STACK
+        {"email": "oscar@campus.edu", "password_hash": hashed_pwd, "name": "Oscar Blake", "skills": ["python", "react", "node", "postgres", "docker"], "interests": ["full stack", "startups", "web dev"], "bio": "Full stack developer and startup enthusiast", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "petra@campus.edu", "password_hash": hashed_pwd, "name": "Petra Cruz", "skills": ["javascript", "react", "node", "mongodb", "aws"], "interests": ["full stack", "mern", "cloud"], "bio": "MERN stack specialist", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "quinn2@campus.edu", "password_hash": hashed_pwd, "name": "Quinn Rivera", "skills": ["typescript", "nextjs", "tailwind", "firebase"], "interests": ["full stack", "modern web", "nextjs"], "bio": "Next.js and modern web developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "rachel@campus.edu", "password_hash": hashed_pwd, "name": "Rachel Harper", "skills": ["python", "django", "react", "postgres", "redis"], "interests": ["full stack", "django", "scalability"], "bio": "Django and React full stack developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
+        {"email": "sam@campus.edu", "password_hash": hashed_pwd, "name": "Sam Phoenix", "skills": ["ruby", "rails", "vue", "postgresql"], "interests": ["full stack", "rails", "web dev"], "bio": "Ruby on Rails developer", "availability": "ACTIVE", "is_deleted": False, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow()},
     ]
     
     result = users_collection.insert_many(users)
     user_ids = result.inserted_ids
     
     intents = [
-        {
-            "user_id": user_ids[0],
-            "text": "Looking for React developer to build web dashboard for campus sustainability project",
-            "intent_type": "LOOKING_FOR_TEAM",
-            "keywords": ["react", "web", "sustainability", "dashboard"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[1],
-            "text": "Building mobile app for campus events, need backend and AI person",
-            "intent_type": "BUILDING_PROJECT",
-            "keywords": ["mobile", "app", "campus", "events", "backend"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[2],
-            "text": "Want to share machine learning expertise and collaborate on AI projects",
-            "intent_type": "SKILL_SHARE",
-            "keywords": ["machine learning", "ai", "tensorflow"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[3],
-            "text": "Looking for backend and frontend devs to build startup MVP",
-            "intent_type": "LOOKING_FOR_TEAM",
-            "keywords": ["startup", "mvp", "backend", "frontend"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[4],
-            "text": "Building cloud-native application, need full stack developers",
-            "intent_type": "BUILDING_PROJECT",
-            "keywords": ["cloud", "native", "fullstack", "aws"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[5],
-            "text": "Interested in Web3 and blockchain hackathon, seeking collaborators",
-            "intent_type": "LOOKING_FOR_TEAM",
-            "keywords": ["web3", "blockchain", "ethereum"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[6],
-            "text": "Creating interactive UI library, need backend support",
-            "intent_type": "BUILDING_PROJECT",
-            "keywords": ["ui", "library", "animation", "frontend"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[7],
-            "text": "Need frontend and DevOps engineer for database optimization project",
-            "intent_type": "LOOKING_FOR_TEAM",
-            "keywords": ["frontend", "devops", "database", "optimization"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[8],
-            "text": "Looking for Golang developers to build microservices architecture",
-            "intent_type": "LOOKING_FOR_TEAM",
-            "keywords": ["golang", "microservices", "systems"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        },
-        {
-            "user_id": user_ids[9],
-            "text": "Building competitive programming judge platform, need full stack team",
-            "intent_type": "BUILDING_PROJECT",
-            "keywords": ["competitive", "programming", "judge", "platform"],
-            "status": "ACTIVE",
-            "keywords_auto_generated": True,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
-            "expires_at": datetime.utcnow() + timedelta(hours=48)
-        }
+        {"user_id": user_ids[0], "text": "Building sustainable web platform, need frontend and DevOps support", "intent_type": "BUILDING_PROJECT", "keywords": ["web", "sustainability", "frontend", "devops"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[1], "text": "Looking for backend engineer to build e-commerce platform", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["backend", "ecommerce", "database"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[2], "text": "Creating real-time collaboration tool, need backend specialist", "intent_type": "BUILDING_PROJECT", "keywords": ["realtime", "collaboration", "backend"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[3], "text": "Want to build microservices architecture for fintech startup", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["microservices", "fintech", "scalability"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[4], "text": "Need frontend developer for restaurant management system", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["frontend", "management system", "ux"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[5], "text": "Building fitness tracking app, need backend and design support", "intent_type": "BUILDING_PROJECT", "keywords": ["mobile", "fitness", "health"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[6], "text": "Looking for android developer to collaborate on music app", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["android", "music", "mobile"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[7], "text": "Creating cross-platform app for learning platform", "intent_type": "BUILDING_PROJECT", "keywords": ["mobile", "education", "learning"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[8], "text": "Need iOS developer for social networking app", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["ios", "social", "networking"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[9], "text": "Building recommendation engine for e-learning, need full-stack engineer", "intent_type": "BUILDING_PROJECT", "keywords": ["ml", "recommendation", "elearning"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[10], "text": "Analyzing large datasets, looking for visualization expert", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["data science", "visualization", "analytics"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[11], "text": "Working on computer vision project, need frontend for demo app", "intent_type": "BUILDING_PROJECT", "keywords": ["computer vision", "cv", "frontend"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[12], "text": "Building robotics project with RL, need robotics enthusiast", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["robotics", "reinforcement learning", "ai"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[13], "text": "Setting up kubernetes infrastructure, need cloud architect", "intent_type": "BUILDING_PROJECT", "keywords": ["devops", "kubernetes", "cloud"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[14], "text": "Building GCP-based data pipeline", "intent_type": "BUILDING_PROJECT", "keywords": ["gcp", "cloud", "data"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[15], "text": "Need DevOps expert for Azure migration", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["azure", "cloud", "devops"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[16], "text": "Automating CI/CD pipeline for startup", "intent_type": "BUILDING_PROJECT", "keywords": ["devops", "cicd", "automation"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[17], "text": "Building DeFi protocol, need frontend and backend developers", "intent_type": "BUILDING_PROJECT", "keywords": ["blockchain", "defi", "solidity"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[18], "text": "Creating NFT marketplace, need full-stack engineer", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["blockchain", "nft", "web3"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[19], "text": "Building dapp with web3 integration", "intent_type": "BUILDING_PROJECT", "keywords": ["web3", "dapp", "frontend"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[20], "text": "Working on consensus algorithm research", "intent_type": "SKILL_SHARE", "keywords": ["blockchain", "research", "cryptography"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[21], "text": "Creating multiplayer game, need networking specialist", "intent_type": "BUILDING_PROJECT", "keywords": ["game dev", "multiplayer", "networking"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[22], "text": "Building unreal engine game, need artist and designer", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["game dev", "unreal", "art"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[23], "text": "Creating indie game with godot", "intent_type": "BUILDING_PROJECT", "keywords": ["game dev", "godot", "indie"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[24], "text": "Need 3D artist for game characters and environment", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["game art", "3d", "modeling"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[25], "text": "Building high-performance trading system", "intent_type": "BUILDING_PROJECT", "keywords": ["systems", "trading", "performance"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[26], "text": "Optimizing database queries for large-scale app", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["database", "optimization", "performance"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[27], "text": "Building data warehouse with big data stack", "intent_type": "BUILDING_PROJECT", "keywords": ["big data", "warehouse", "analytics"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[28], "text": "Setting up observability platform", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["monitoring", "observability", "devops"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[29], "text": "Conducting security audit, need penetration tester", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["security", "testing", "penetration"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[30], "text": "Building automated test suite for web application", "intent_type": "BUILDING_PROJECT", "keywords": ["testing", "qa", "automation"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[31], "text": "Performance testing critical API endpoints", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["testing", "performance", "api"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[32], "text": "Redesigning product with user research insights", "intent_type": "BUILDING_PROJECT", "keywords": ["ux", "design", "research"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[33], "text": "Building accessible design system", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["ux", "accessibility", "design"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[34], "text": "Creating brand identity for startup", "intent_type": "BUILDING_PROJECT", "keywords": ["design", "branding", "creative"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[35], "text": "Need animator for product marketing videos", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["animation", "motion design", "marketing"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[36], "text": "Launching MVP for SaaS product", "intent_type": "BUILDING_PROJECT", "keywords": ["product", "startup", "mvp"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[37], "text": "Managing agile development team for app launch", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["agile", "management", "leadership"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[38], "text": "Creating technical documentation for API", "intent_type": "BUILDING_PROJECT", "keywords": ["documentation", "technical writing", "api"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[39], "text": "Growing user base with content marketing strategy", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["marketing", "growth", "content"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[40], "text": "Building complete event management platform", "intent_type": "BUILDING_PROJECT", "keywords": ["fullstack", "events", "web"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[41], "text": "Creating learning management system MVP", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["fullstack", "education", "mvp"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[42], "text": "Building real-time dashboard with modern stack", "intent_type": "BUILDING_PROJECT", "keywords": ["fullstack", "nextjs", "realtime"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[43], "text": "Developing Django + React booking platform", "intent_type": "LOOKING_FOR_TEAM", "keywords": ["fullstack", "django", "react"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
+        {"user_id": user_ids[44], "text": "Creating Rails + Vue admin dashboard", "intent_type": "BUILDING_PROJECT", "keywords": ["fullstack", "rails", "admin"], "status": "ACTIVE", "keywords_auto_generated": True, "created_at": datetime.utcnow(), "updated_at": datetime.utcnow(), "expires_at": datetime.utcnow() + timedelta(hours=48)},
     ]
     
     intents_collection.insert_many(intents)
-    print("✅ Seeded 10 users with 10 intents")
+    print("✅ Seeded 45 diverse users with 45 intents")
 
 if __name__ == "__main__":
-    seed_sample_data()
+    seed_large_dataset()

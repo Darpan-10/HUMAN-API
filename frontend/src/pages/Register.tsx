@@ -92,10 +92,16 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-hidden relative">
+      {/* Background gradient effect */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-lime-50 via-white to-yellow-50" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-green-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-yellow-200 via-green-200 to-transparent rounded-full blur-3xl opacity-30" style={{ animationDelay: '1s' }} />
+      </div>
       <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
         <span
-          className="font-display text-xl font-bold tracking-tight text-foreground cursor-pointer"
+          className="font-display text-xl font-bold tracking-tight text-foreground cursor-pointer hover:text-green-600 transition-colors"
           onClick={() => navigate("/")}
         >
           Human API
@@ -105,8 +111,8 @@ const Register = () => {
       <main className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md space-y-8 animate-fade-in">
           <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-4">
-              <UserPlus className="w-7 h-7 text-primary" />
+            <div className="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center mx-auto mb-4">
+              <UserPlus className="w-7 h-7 text-green-600" />
             </div>
             <h1 className="font-display text-3xl font-bold text-foreground">
               Create Account
@@ -209,7 +215,7 @@ const Register = () => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full py-6 text-base font-display font-semibold gap-2 group"
+              className="w-full py-6 text-base font-display font-semibold gap-2 group bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white"
             >
               {loading ? "Creating Account..." : "Create Account"}
               {!loading && <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />}
@@ -221,7 +227,7 @@ const Register = () => {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="text-primary hover:underline font-semibold"
+                className="text-green-600 hover:underline font-semibold"
               >
                 Sign In
               </Link>

@@ -65,16 +65,16 @@ const ProfileSetup = () => {
     <div className="min-h-screen flex flex-col overflow-hidden">
       {/* Background gradient effect */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-pink-200 via-purple-200 to-transparent rounded-full blur-3xl opacity-30" style={{ animationDelay: '1s' }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-lime-50 via-white to-yellow-50" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-green-200 to-transparent rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-yellow-200 via-green-200 to-transparent rounded-full blur-3xl opacity-30" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Nav */}
       <nav className="relative px-6 py-6 flex items-center justify-between max-w-6xl mx-auto w-full">
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors group"
+          className="flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold transition-colors group"
         >
           <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
           Back
@@ -88,14 +88,14 @@ const ProfileSetup = () => {
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-40" />
-                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-yellow-600 rounded-2xl blur-lg opacity-40" />
+                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-green-600 to-yellow-600 flex items-center justify-center">
                   <User className="w-8 h-8 text-white" />
                 </div>
               </div>
             </div>
             <h1 className="font-display text-5xl sm:text-6xl font-black tracking-tight leading-none">
-              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-lime-600 bg-clip-text text-transparent">
                 Create Your Profile
               </span>
             </h1>
@@ -105,7 +105,7 @@ const ProfileSetup = () => {
           </div>
 
           {/* Form Card */}
-          <div className="rounded-3xl bg-white/80 backdrop-blur-xl border-2 border-purple-100 p-8 space-y-6">
+          <div className="rounded-3xl bg-white/80 backdrop-blur-xl border-2 border-green-100 p-8 space-y-6">
             <div className="space-y-3">
               <Label htmlFor="name" className="text-base font-bold text-gray-900">
                 Full Name
@@ -115,7 +115,7 @@ const ProfileSetup = () => {
                 placeholder="Enter your full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
+                className="h-12 rounded-xl border-2 border-green-200 focus:border-green-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
@@ -128,7 +128,7 @@ const ProfileSetup = () => {
                 placeholder="e.g., React, Python, UI Design (comma separated)"
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
-                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
+                className="h-12 rounded-xl border-2 border-green-200 focus:border-green-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
@@ -141,7 +141,7 @@ const ProfileSetup = () => {
                 placeholder="e.g., AI, Web Development, Startups (comma separated)"
                 value={interests}
                 onChange={(e) => setInterests(e.target.value)}
-                className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
+                className="h-12 rounded-xl border-2 border-green-200 focus:border-green-500 focus:ring-0 bg-white/50 placeholder-gray-400 font-medium text-base"
               />
             </div>
 
@@ -175,7 +175,7 @@ const ProfileSetup = () => {
             <Button
               onClick={handleSave}
               disabled={loading}
-              className="w-full py-6 text-base font-display font-semibold gap-2 group"
+              className="w-full py-6 text-base font-display font-semibold gap-2 group bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white"
             >
               {loading ? "Saving..." : "Save Profile"}
               {!loading && <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />}
@@ -183,8 +183,8 @@ const ProfileSetup = () => {
           </div>
 
           {/* Info note */}
-          <div className="flex items-start gap-3 p-5 rounded-xl bg-purple-50 border border-purple-200">
-            <Sparkles className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 p-5 rounded-xl bg-green-50 border border-green-200">
+            <Sparkles className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-gray-700 font-medium">
               Your profile helps us match you with people who have complementary skills and shared interests.
             </p>
