@@ -24,6 +24,12 @@ TECH_KEYWORDS = {
     "sustainability", "campus", "events", "social", "network"
 }
 
+# Pre-compute multi-word terms for efficient matching
+_MULTI_WORD_KEYWORDS = sorted(
+    [kw for kw in TECH_KEYWORDS if " " in kw],
+    key=len, reverse=True  # longest first to avoid partial matches
+)
+
 
 def extract_keywords(text: str) -> List[str]:
     """Extract keywords from intent text"""
@@ -34,14 +40,20 @@ def extract_keywords(text: str) -> List[str]:
         return []
     
     try:
-        # Lowercase and extract words
-        words = re.findall(r'\b[a-z]+\b', text.lower())
-        
-        # PERFORMANCE: Single pass filter instead of multiple iterations
-        keywords = [w for w in words if w not in STOP_WORDS and len(w) > 2]
+        lower_text = text.lower()
+        keywords = []
+
+        # Step 1: Match multi-word tech terms first (e.g. "machine learning")
+        for term in _MULTI_WORD_KEYWORDS:
+            if term in lower_text:
+                keywords.append(term)
+
+        # Step 2: Extract single words, filter stop words
+        words = re.findall(r'\b[a-z]+\b', lower_text)
+        keywords.extend(w for w in words if w not in STOP_WORDS and len(w) > 2)
         
         # Return unique keywords (max 10 to avoid bloat)
-        return list(set(keywords))[:10]
+        return list(dict.fromkeys(keywords))[:10]
         
     # FAILURE POINT 2: Regex or processing fails
     except Exception as e:

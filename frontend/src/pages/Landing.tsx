@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Sparkles, Users, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Zap, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden">
@@ -15,14 +22,36 @@ const Landing = () => {
       </div>
 
       {/* Nav */}
-      <nav className="relative px-6 py-6 flex items-center justify-between max-w-6xl mx-auto w-full">
-        <div className="flex items-center gap-2 group cursor-pointer" onClick={() => navigate("/")}>
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-display text-2xl font-black tracking-tight bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Human API
-          </span>
+      <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
+        <span className="font-display text-xl font-bold tracking-tight text-foreground">
+          Human API
+        </span>
+        <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <span className="text-sm text-muted-foreground">
+                Welcome, <span className="font-semibold text-foreground">{user.name}</span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/login")}>
+                Sign In
+              </Button>
+              <Button size="sm" onClick={() => navigate("/register")}>
+                Sign Up
+              </Button>
+            </>
+          )}
         </div>
       </nav>
 
@@ -54,24 +83,14 @@ const Landing = () => {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button
-              size="lg"
-              onClick={() => navigate("/profile")}
-              className="text-lg px-10 py-7 rounded-xl font-display font-bold gap-2 group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-2xl transition-all duration-300"
-            >
-              Start Finding Matches
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => navigate("/intent")}
-              className="text-lg px-10 py-7 rounded-xl font-display font-bold border-2 border-purple-300 hover:border-purple-400 hover:bg-purple-50 transition-all duration-300"
-            >
-              Quick Search
-            </Button>
-          </div>
+          <Button
+            size="lg"
+            onClick={() => navigate(user ? "/intent" : "/register")}
+            className="text-lg px-8 py-6 rounded-xl font-display font-semibold gap-2 group"
+          >
+            {user ? "Find Collaborators" : "Get Started"}
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </Button>
 
           {/* Feature cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-12">

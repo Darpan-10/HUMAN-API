@@ -6,26 +6,59 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { updateProfile } from "@/lib/api";
 
 const ProfileSetup = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [skills, setSkills] = useState("");
-  const [interests, setInterests] = useState("");
-  const [availability, setAvailability] = useState("");
+  const { user, updateUser } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(user?.name || "");
+  const [skills, setSkills] = useState(user?.skills?.join(", ") || "");
+  const [interests, setInterests] = useState(user?.interests?.join(", ") || "");
+  const [availability, setAvailability] = useState(user?.availability || "ACTIVE");
+  const [bio, setBio] = useState(user?.bio || "");
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) {
       toast.error("Please enter your name");
       return;
     }
-    // Store profile locally for now
-    localStorage.setItem(
-      "humanapi_profile",
-      JSON.stringify({ name, skills, interests, availability })
-    );
-    toast.success("Profile saved!");
-    navigate("/intent");
+
+    if (!user) {
+      toast.error("Please log in first");
+      navigate("/login");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const skillsArray = skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s);
+      const interestsArray = interests
+        .split(",")
+        .map((i) => i.trim())
+        .filter((i) => i);
+
+      const updatedUser = await updateProfile(user.id, {
+        name,
+        skills: skillsArray,
+        interests: interestsArray,
+        availability,
+        bio: bio || undefined,
+      });
+
+      updateUser(updatedUser);
+      toast.success("Profile updated successfully!");
+      navigate("/intent");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update profile";
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -112,28 +145,40 @@ const ProfileSetup = () => {
               />
             </div>
 
-            <div className="space-y-3">
-              <Label className="text-base font-bold text-gray-900">
-                Current Availability
-              </Label>
-              <Select value={availability} onValueChange={setAvailability}>
-                <SelectTrigger className="h-12 rounded-xl border-2 border-purple-200 focus:border-purple-500 focus:ring-0 bg-white/50 font-medium">
-                  <SelectValue placeholder="Select your availability" />
+            <div className="space-y-2">
+              <Label htmlFor="bio">Bio (Optional)</Label>
+              <textarea
+                id="bio"
+                placeholder="Tell us about yourself"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                disabled={loading}
+                className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Availability</Label>
+              <Select value={availability} onValueChange={setAvailability} disabled={loading}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select availability" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="available">Available for new projects</SelectItem>
-                  <SelectItem value="busy">Currently busy</SelectItem>
-                  <SelectItem value="flexible">Flexible schedule</SelectItem>
+                  <SelectItem value="ACTIVE">Available</SelectItem>
+                  <SelectItem value="INACTIVE">Not Available</SelectItem>
+                  <SelectItem value="ON_BREAK">On Break</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <Button
               onClick={handleSave}
-              className="w-full py-7 text-lg font-display font-bold gap-2 group rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-2xl transition-all duration-300"
+              disabled={loading}
+              className="w-full py-6 text-base font-display font-semibold gap-2 group"
             >
-              Save Profile & Find Matches
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              {loading ? "Saving..." : "Save Profile"}
+              {!loading && <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />}
             </Button>
           </div>
 
