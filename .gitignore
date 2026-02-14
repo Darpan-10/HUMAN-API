@@ -15,3 +15,13 @@ Thumbs.db
 # IDE files
 .vscode/
 .idea/
+# Python cache
+__pycache__/
+*.pyc
+backend/**/__pycache__/
+
+# Python venv
+backend/venv/
+
+# Env
+backend/.env
