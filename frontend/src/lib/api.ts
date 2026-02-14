@@ -24,6 +24,24 @@ export interface AuthResponse {
   data: User;
 }
 
+// Helper function to handle API errors
+async function handleApiResponse<T>(response: Response): Promise<T> {
+  if (!response.ok) {
+    try {
+      const error = await response.json();
+      throw new Error(error.detail || `API Error: ${response.status}`);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw e;
+      }
+      throw new Error(
+        `API Error ${response.status}: ${response.statusText}`
+      );
+    }
+  }
+  return response.json();
+}
+
 // Auth API
 export async function registerUser(credentials: {
   email: string;
@@ -33,73 +51,113 @@ export async function registerUser(credentials: {
   interests: string[];
   bio?: string;
 }): Promise<User> {
-  const response = await fetch(`${API_BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || "Registration failed");
+    const data = await handleApiResponse<AuthResponse>(response);
+    return data.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Cannot connect to the server. Please ensure the backend is running at " +
+            API_BASE_URL
+        );
+      }
+      throw error;
+    }
+    throw new Error("Registration failed");
   }
-
-  const data: AuthResponse = await response.json();
-  return data.data;
 }
 
 export async function loginUser(credentials: {
   email: string;
   password: string;
 }): Promise<User> {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || "Login failed");
+    const data = await handleApiResponse<AuthResponse>(response);
+    return data.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Cannot connect to the server. Please ensure the backend is running at " +
+            API_BASE_URL
+        );
+      }
+      throw error;
+    }
+    throw new Error("Login failed");
   }
-
-  const data: AuthResponse = await response.json();
-  return data.data;
 }
 
-export async function updateProfile(userId: string, updates: {
-  name?: string;
-  skills?: string[];
-  interests?: string[];
-  bio?: string;
-  availability?: string;
-}): Promise<User> {
-  const response = await fetch(`${API_BASE_URL}/auth/profile/${userId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updates),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || "Profile update failed");
+export async function updateProfile(
+  userId: string,
+  updates: {
+    name?: string;
+    skills?: string[];
+    interests?: string[];
+    bio?: string;
+    availability?: string;
   }
+): Promise<User> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/profile/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
 
-  const data: AuthResponse = await response.json();
-  return data.data;
+    const data = await handleApiResponse<AuthResponse>(response);
+    return data.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Cannot connect to the server. Please ensure the backend is running at " +
+            API_BASE_URL
+        );
+      }
+      throw error;
+    }
+    throw new Error("Profile update failed");
+  }
 }
 
 // Intent API
 export async function findConnections(intent: string): Promise<ConnectionResult[]> {
-  const response = await fetch(`${API_BASE_URL}/intent`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ intent }),
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/intent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ intent }),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error("Failed to find connections");
+    }
+
+    return response.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("Failed to fetch")) {
+        throw new Error(
+          "Cannot connect to the server. Please ensure the backend is running at " +
+            API_BASE_URL
+        );
+      }
+      throw error;
+    }
     throw new Error("Failed to find connections");
   }
-
-  return response.json();
 }
