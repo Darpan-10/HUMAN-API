@@ -1,5 +1,5 @@
 # app/main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
@@ -125,5 +125,6 @@ def quick_intent(payload: dict):
             reason = "Shares " + ", ".join(overlap[:3])
             results.append({"name": name, "tag": tag, "reason": reason})
         return results[:10]
-    except Exception:
-        return []
+    except Exception as e:
+        logger.error(f"POST /intent error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process intent")

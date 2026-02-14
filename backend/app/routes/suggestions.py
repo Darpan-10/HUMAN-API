@@ -1,8 +1,6 @@
 # app/routes/suggestions.py
 from fastapi import APIRouter, HTTPException
-from app.models.user import UserPublic
 from app.services.matcher import get_top_matches
-from app.utils.formatter import format_suggestion
 from bson import ObjectId
 import logging
 
@@ -21,7 +19,7 @@ def get_suggestions(user_id: str, limit: int = 5):
         logger.warning(f"Invalid user_id: {user_id}")
         raise HTTPException(status_code=400, detail="Invalid user ID")
     
-    # FAILURE POINT 2: Matching computation fails or returns empty
+    # FAILURE POINT 2: Matching computation fails
     try:
         if limit > 10:
             limit = 10
@@ -37,12 +35,23 @@ def get_suggestions(user_id: str, limit: int = 5):
                 "suggestions": []
             }
         
-        formatted = [format_suggestion(match) for match in matches]
+        # Return as simple cards - NO NUMBERS, NO SCORES
+        suggestions = [
+            {
+                "user_id": match["user_id"],
+                "name": match["name"],
+                "skills": match["skills"],
+                "interests": match["interests"],
+                "bio": match["bio"]
+                # Score is NOT included - hidden internally
+            }
+            for match in matches
+        ]
         
         return {
             "success": True,
-            "message": f"Found {len(formatted)} suggestions",
-            "suggestions": formatted
+            "message": f"Found {len(suggestions)} collaborators",
+            "suggestions": suggestions
         }
     except Exception as e:
         logger.error(f"Suggestion computation error: {e}")

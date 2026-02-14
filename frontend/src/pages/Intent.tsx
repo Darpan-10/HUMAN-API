@@ -19,10 +19,16 @@ const Intent = () => {
 
     setLoading(true);
     try {
-      const results = await findConnections(intent);
+      const results = await findConnections(intent.trim());
       navigate("/results", { state: { results } });
     } catch (error) {
-      toast.error("Could not reach the server. Is the backend running?");
+      if (error instanceof DOMException && error.name === "AbortError") {
+        toast.error("Request timed out. Is the backend running?");
+      } else if (error instanceof TypeError) {
+        toast.error("Could not reach the server. Is the backend running?");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
