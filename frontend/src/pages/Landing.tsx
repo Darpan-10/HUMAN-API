@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Sparkles, Users, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Zap, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -12,6 +19,33 @@ const Landing = () => {
         <span className="font-display text-xl font-bold tracking-tight text-foreground">
           Human API
         </span>
+        <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <span className="text-sm text-muted-foreground">
+                Welcome, <span className="font-semibold text-foreground">{user.name}</span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/login")}>
+                Sign In
+              </Button>
+              <Button size="sm" onClick={() => navigate("/register")}>
+                Sign Up
+              </Button>
+            </>
+          )}
+        </div>
       </nav>
 
       {/* Hero */}
@@ -34,10 +68,10 @@ const Landing = () => {
 
           <Button
             size="lg"
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate(user ? "/intent" : "/register")}
             className="text-lg px-8 py-6 rounded-xl font-display font-semibold gap-2 group"
           >
-            Get Started
+            {user ? "Find Collaborators" : "Get Started"}
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>
 
