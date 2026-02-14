@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
     
     # API
-    api_title: str = "Campus Connect"
+    api_title: str = "<DEV / DEX>"
     api_version: str = "1.0.0"
     cors_origins: list[str] = ["*"]
     

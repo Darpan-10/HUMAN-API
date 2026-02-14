@@ -62,10 +62,10 @@ const Login = () => {
       </div>
       <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
         <span
-          className="font-display text-xl font-bold tracking-tight text-foreground cursor-pointer hover:text-green-600 transition-colors"
+          className="font-display text-2xl font-black tracking-tighter bg-gradient-to-r from-green-600 via-lime-600 to-yellow-500 bg-clip-text text-transparent cursor-pointer hover:scale-105 transition-all"
           onClick={() => navigate("/")}
         >
-          Human API
+          &lt;DEV / DEX&gt;
         </span>
       </nav>
 

@@ -23,8 +23,8 @@ const Landing = () => {
 
       {/* Nav */}
       <nav className="px-6 py-5 flex items-center justify-between max-w-5xl mx-auto w-full">
-        <span className="font-display text-xl font-bold tracking-tight text-foreground">
-          Human API
+        <span className="font-display text-4xl font-black tracking-tighter bg-gradient-to-r from-green-600 via-lime-600 to-yellow-500 bg-clip-text text-transparent transform hover:scale-105 transition-transform cursor-pointer" onClick={() => navigate("/")}>
+          &lt;DEV / DEX&gt;
         </span>
         <div className="flex items-center gap-4">
           {user ? (
@@ -68,7 +68,7 @@ const Landing = () => {
           <div className="space-y-4">
             <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none">
               <span className="bg-gradient-to-r from-green-600 via-lime-600 to-yellow-500 bg-clip-text text-transparent">
-                Connect With 
+                Connect With
               </span>
               <br />
               <span className="bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">

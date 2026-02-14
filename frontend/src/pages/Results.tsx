@@ -24,8 +24,8 @@ const Results = () => {
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-600 to-yellow-600 flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <span className="font-display text-2xl font-black tracking-tight bg-gradient-to-r from-green-600 to-yellow-600 bg-clip-text text-transparent">
-            Human API
+          <span className="font-display text-3xl font-black tracking-tighter bg-gradient-to-r from-green-600 via-lime-600 to-yellow-500 bg-clip-text text-transparent transform hover:scale-105 transition-transform cursor-pointer" onClick={() => navigate("/")}>
+            &lt;DEV / DEX&gt;
           </span>
         </div>
         <Button

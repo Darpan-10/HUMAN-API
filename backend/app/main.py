@@ -89,7 +89,7 @@ except Exception as e:
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to Campus Connect API",
+        "message": "Welcome to <DEV / DEX> API",
         "docs": "/docs",
         "redoc": "/redoc"
     }

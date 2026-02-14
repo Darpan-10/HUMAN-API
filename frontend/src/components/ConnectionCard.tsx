@@ -105,7 +105,7 @@ const ConnectionCard = ({ result, index }: Props) => {
       {/* Action button */}
       <div className="mt-auto pt-4">
         <a
-          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${result.email || ''}&su=Collaboration Opportunity - Human API&body=Hi ${result.name.split(' ')[0]}, I saw your profile on Human API and would love to connect and discuss a potential collaboration!`}
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${result.email || ''}&su=Collaboration Opportunity - <DEV / DEX>&body=Hi ${result.name.split(' ')[0]}, I saw your profile on <DEV / DEX> and would love to connect and discuss a potential collaboration!`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-full inline-flex items-center justify-center py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 transition-all duration-300 hover:shadow-lg active:scale-95 no-underline"

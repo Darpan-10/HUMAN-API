@@ -1,4 +1,4 @@
-# 🌐 Human API
+# 🌐 &lt;DEV / DEX&gt;
 
 ### *The Intent-Based Collaboration Engine*
 
@@ -12,7 +12,7 @@
 ## 🚀 Vision
 In the heat of a hackathon, finding the right collaborator shouldn't be about scrolling through endless profiles—it should be about **intent**. 
 
-**Human API** is a high-performance matching engine that parses your project goals and instantly connects you with the most suitable collaborators. It bridges the gap between *what you want to build* and *who you need to build it with*.
+**&lt;DEV / DEX&gt;** is a high-performance matching engine that parses your project goals and instantly connects you with the most suitable collaborators. It bridges the gap between *what you want to build* and *who you need to build it with*.
 
 ## ✨ Key Features
 - **🧠 Intent Matching Engine**: Describe your project in plain English. Our backend uses keyword extraction and alignment scoring to find your perfect match.
@@ -75,7 +75,7 @@ npm run dev
 ---
 
 ## 🏆 Hackathon Value
-Human API solves the **#1 bottleneck** in collaborative events: team formation. By automating the discovery process, developers can spend less time searching and more time shipping.
+&lt;DEV / DEX&gt; solves the **#1 bottleneck** in collaborative events: team formation. By automating the discovery process, developers can spend less time searching and more time shipping.
 
 ---
 *Built with ❤️ for the Hackathon Community.*

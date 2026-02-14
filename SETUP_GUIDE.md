@@ -1,4 +1,4 @@
-# Human API - Setup & Debugging Guide
+# <DEV / DEX> - Setup & Debugging Guide
 
 ## Problem: "TypeError: Failed to fetch"
 
